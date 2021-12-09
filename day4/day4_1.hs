@@ -20,7 +20,7 @@ finalAndUnmarked (x:xs) matSetList = if solved then (x, sum') else finalAndUnmar
 
 checkBingo :: Int -> [([Set.Set Int], [Set.Set Int])] -> [([Set.Set Int], [Set.Set Int])] -> (Bool, Int, [([Set.Set Int], [Set.Set Int])] )
 checkBingo n [] acc = (False, 0, acc)
-checkBingo n ((rows, cols):rest) acc = if elem Set.empty minrow || elem Set.empty mincol then (True, summation, acc) else checkBingo n rest ((minrow,mincol):acc)
+checkBingo n [(rows, cols)] acc = if elem Set.empty minrow || elem Set.empty mincol then (True, summation, acc) else checkBingo n rest ((minrow,mincol):acc)
     where minrow = map (Set.delete n) rows
           mincol = map (Set.delete n) cols
           summation = sum (map sum minrow)
