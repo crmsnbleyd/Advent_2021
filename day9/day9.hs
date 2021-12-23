@@ -32,7 +32,7 @@ collectBasin m s p@(x, y) | point m p < 9 && notElem p s = foldl (collectBasin m
 
 collectBasins m = map (collectBasin m [])
 
-part2 m = let f = product . take 3 . reverse . sort . map (sum . map length)
-          in  f $ collectBasins m $ localMinima (0, 0) m
+part2 m = f . collectBasins m . localMinima (0, 0) $ m
+  where f = product . take 3 . reverse . sort . map (sum . map length)
 
 main = readFile "9.txt" >>= (\x -> print (part1 x, part2 x)) . parseInput
