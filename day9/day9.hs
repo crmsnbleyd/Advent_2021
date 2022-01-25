@@ -15,13 +15,12 @@ isLocalMin :: (Int, Int) -> [[Int]] -> Bool
 isLocalMin p@(x, y) m = all ((> point m p) .  point m ) (neighbours p)
 
 localMinima :: (Int, Int) -> [[Int]] -> [(Int, Int)]
-localMinima p@(x, y) m = if   x < rowLength m
-                         then if   isLocalMin p m
-                              then p : localMinima (x + 1, y) m
-                              else     localMinima (x + 1, y) m
-                         else if   y < colLength m
-                              then localMinima (0, y + 1) m
-                              else []
+localMinima p@(x, y) m
+  | x < rowLength m = if   isLocalMin p m
+                      then p : localMinima (x + 1, y) m
+                      else     localMinima (x + 1, y) m
+  | y < colLength m = localMinima (0, y + 1) m
+  | otherwise = []
 
 riskLevel m p = 1 + point m p
 
